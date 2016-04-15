@@ -1,10 +1,30 @@
 angular.module('starter.controllers', [])
 
-  .controller('SignInCtrl', function($scope, $state) {
-    $scope.
+  .controller('SignInCtrl', function($scope, $state, Login) {
+    $scope.signin = {
+      username:"",
+      password:""
+    };
+
     $scope.signIn = function() {
-      console.log('Sign-In');
-      $state.go('tab.dash');
+      
+      Login.login($scope.signin.username,$scope.signin.password)
+        .then(
+          function(auth)
+          {
+           return auth;
+          }
+        )
+        .then(
+          function(auth)
+          {
+            if(auth)
+            {
+              $state.go('tab.dash');
+            }
+          }
+        );
+
     };
 
   })

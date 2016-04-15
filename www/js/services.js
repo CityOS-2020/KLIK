@@ -13,6 +13,46 @@ angular.module('starter.services', ['ionic', 'firebase','starter.controllers', '
   }
   )
 
+  .factory("Login",function($firebaseAuth,$window)
+    {
+
+
+      function setPersistentUserAuthentication(strEmail, strProvider, uid, utcExpires)
+      {
+        $window.sessionStorage.setItem (
+          'USER_AUTH_CRED',
+          JSON.stringify({ email: strEmail, provider: strProvider, uid: uid, timeout: utcExpires * 10000000000 })
+        );
+      }
+
+      return{
+        login: function(mail,pwd)
+        {
+          var firebaseRef = new Firebase("https://dubrovniksb.firebaseio.com/");
+          return $firebaseAuth(firebaseRef).$authWithPassword({ email: mail, password: pwd })
+            .then(
+              function(authUser)
+              {
+                // On successful authentication set the users authentication credentials and a timeout to the
+                // session storage
+
+                setPersistentUserAuthentication(authUser.email, authUser.provider, authUser.uid, authUser.expires);
+
+                return authUser;
+              }
+            )
+            .catch(
+              function(errorAuth)
+              {
+                throw errorAuth;
+              }
+            );
+        }
+      }
+
+    }
+  )
+
   .factory("Beaches", function($firebaseArray) {
     var fb = new Firebase("https://dubrovniksb.firebaseio.com/");
     var itemsRef = new Firebase("https://dubrovniksb.firebaseio.com/beaches");
