@@ -1,0 +1,31 @@
+<ion-view view-title="Admin">
+  <ion-content>
+    <ion-list>
+
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Name</span>
+          <input ng-model="beach.name" type="text">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Temperature</span>
+          <input ng-model="beach.temp" type="text">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Humidity</span>
+          <input ng-model="beach.hum" type="text">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Stream name</span>
+          <input ng-model="beach.stream" type="text" placeholder="http://player.twitch.tv/?channel=">
+        </label>
+      </div>
+
+      <div class="padding">
+        <button  ng-click="update(beach)" class="button button-block button-positive">Add beach</button>
+        <button  ng-click="reset()" class="button button-block button-positive">Clear</button>
+      </div>
+
+    </ion-list>
+  </ion-content>
+</ion-view>

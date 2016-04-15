@@ -1,0 +1,35 @@
+<ion-view view-title="Home">
+  <ion-content class="padding">
+    <div ng-repeat="beach in beaches">
+      <ion-item class="item-icon-left item-icon-right"
+                ng-class="{active: isGroupShown(beach)}"
+                ng-click="toggleGroup(beach)">
+        <i class="icon ion-ios-sunny-outline"
+           ng-if="beach.temp>30"></i>
+        <i class="icon ion-ios-partlysunny-outline"
+           ng-if="beach.temp<=30&&beach.temp>=25"></i>
+        <i class="icon ion-ios-cloudy-outline"
+           ng-if="beach.temp<25"></i>
+        &nbsp;
+        {{beach.name}}
+        <i ng-show="!isGroupShown(beach)"
+           class="icon ion-more"></i>
+      </ion-item>
+      <ion-item ng-show="isGroupShown(beach)">
+        Temperature : {{beach.temp}}°C
+      </ion-item>
+      <ion-item ng-show="isGroupShown(beach)">
+        Humidity : {{beach.hum}}
+      </ion-item>
+      <ion-item ng-show="isGroupShown(beach)" ng-init="stars = getTotal(beach)">
+        Rating :
+        <i  ng-repeat="n in [] | range:5" style="cursor:pointer;"
+            ng-class="n<stars ? 'ion-ios-star' : 'ion-ios-star-outline'"
+            ng-click="rate(n)"></i>
+      </ion-item>
+      <div ng-init="init(beach)">
+        <iframe ng-show="isGroupShown(beach)" ng-src="{{isGroupShown(beach) ? url : ''}}" allowfullscreen></iframe>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
