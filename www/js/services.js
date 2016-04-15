@@ -44,7 +44,7 @@ angular.module('starter.services', ['ionic', 'firebase','starter.controllers', '
             .catch(
               function(errorAuth)
               {
-                throw errorAuth;
+                $window.alert(errorAuth);
               }
             );
         }
