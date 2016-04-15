@@ -7,7 +7,7 @@ angular.module('starter.controllers', [])
     };
 
     $scope.signIn = function() {
-      
+
       Login.login($scope.signin.username,$scope.signin.password)
         .then(
           function(auth)
