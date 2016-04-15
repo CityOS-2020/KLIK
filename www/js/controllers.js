@@ -1,7 +1,7 @@
 angular.module('starter.controllers', [])
 
   .controller('SignInCtrl', function($scope, $state) {
-
+    $scope.
     $scope.signIn = function() {
       console.log('Sign-In');
       $state.go('tab.dash');
