@@ -1,5 +1,18 @@
 angular.module('starter.services', ['ionic', 'firebase','starter.controllers', 'starter.services'])
 
+  .factory("Register",function($firebaseAuth)
+  {
+    return{
+      register: function(mail,pwd)
+      {
+        var fb = new Firebase("https://dubrovniksb.firebaseio.com/");
+        return $firebaseAuth(fb).$createUser({ email: mail, password: pwd });
+      }
+    }
+
+  }
+  )
+
   .factory("Beaches", function($firebaseArray) {
     var fb = new Firebase("https://dubrovniksb.firebaseio.com/");
     var itemsRef = new Firebase("https://dubrovniksb.firebaseio.com/beaches");

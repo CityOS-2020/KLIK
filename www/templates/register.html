@@ -1,0 +1,19 @@
+<ion-view view-title="Register">
+  <ion-content>
+    <div class="list">
+      <label class="item item-input">
+        <span class="input-label">Username</span>
+        <input type="text" ng-model="register.username">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Password</span>
+        <input type="password" ng-model="register.password">
+      </label>
+    </div>
+    <div class="padding">
+      <button class="button button-block button-positive" ng-click="registerHndlr('tab')">
+        Register
+      </button>
+    </div>
+  </ion-content>
+</ion-view>

@@ -1,5 +1,34 @@
 angular.module('starter.controllers', [])
 
+  .controller('SignInCtrl', function($scope, $state) {
+
+    $scope.signIn = function() {
+      console.log('Sign-In');
+      $state.go('tab.dash');
+    };
+
+  })
+  .controller('RegisterCtrl', function($scope, $state, Register) {
+
+    $scope.register={
+      username:"",
+      password:""
+    }
+
+    $scope.registerHndlr = function(nextState)
+    {
+      console.log($scope.register);
+        Register.register($scope.register.username,$scope.register.password)
+          .then(
+            function(user)
+            {
+              console.log(user);
+            }
+          );
+
+    }
+  })
+
   .controller("HomeCtrl", function($scope, $sce,$window, Beaches) {
     $scope.init = function(stream)
     {
