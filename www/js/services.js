@@ -64,6 +64,12 @@ angular.module('starter.services', ['ionic', 'firebase','starter.controllers', '
 
   })
 
+  .factory("Map", function($firebaseArray) {
+    var fb = new Firebase("https://dubrovniksb.firebaseio.com/");
+    var itemsRef = new Firebase("https://dubrovniksb.firebaseio.com/location");
+    return $firebaseArray(itemsRef);
+  })
+
   .factory('Chats', function() {
   // Might use a resource here that returns a JSON array
 
