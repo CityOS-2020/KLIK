@@ -72,7 +72,7 @@ angular.module('starter.services', ['ionic', 'firebase','starter.controllers', '
 
     return {
       all: function() {
-        return $firebaseArray(itemsRef.endAt().limitToLast(20));
+        return $firebaseArray(itemsRef.endAt().limitToLast(30));
       }
     };
 

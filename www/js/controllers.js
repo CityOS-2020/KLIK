@@ -204,7 +204,9 @@ angular.module('starter.controllers', [])
     $scope.location = obj;
 
     $scope.update = function(msg) {
-      $scope.chat.$add(msg);
+      if(msg.username!="") {
+        $scope.chat.$add(msg);
+      }
     };
 
 

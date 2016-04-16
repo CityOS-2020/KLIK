@@ -9,20 +9,25 @@
          <h3>Air : {{location.temperature}}(°C)</h3>
          <h3>Sea : {{location.sea_temperature}}(°C)</h3>
          <h3>Humidity : {{location.humidity}}(%)</h3>
+          <h3>UV index: {{location.uv}}</h3>
       </div>
-      <div class="col col-bottom">
-
+      <div class="col col-top">
         <ul>
-          <li ng-repeat="message in chat track by $index | orderBy:$index | limitTo:5">
+          <li ng-repeat="message in chat">
             {{message.username}}:{{message.text}}
           </li>
         </ul>
-
-          <input type='text' ng-model='msg.username' placeholder='Enter a username...'>
-          <input type='text' ng-model='msg.text'  placeholder='Type a message...'>
+        <div class="list padding-top">
+          <label class="item item-input">
+            <span class="input-label">Username</span>
+            <input type='text' ng-model='msg.username' placeholder='Enter a username...'>
+          </label>
+          <label class="item item-input">
+            <span class="input-label">Message</span>
+            <input type='text' ng-model='msg.text'  placeholder='Type a message...'>
+          </label>
+        </div>
           <button  ng-click="update(msg)" class="button button-block button-positive">Send</button>
-
-
      </div>
     </div>
   </ion-content>
