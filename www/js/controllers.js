@@ -151,25 +151,6 @@ angular.module('starter.controllers', [])
 
   })
 
-  .controller('LocationDetailCtrl', function($scope, $stateParams,$firebaseObject) {
-    var ref = new Firebase("https://dubrovniksb.firebaseio.com/locations/"+$stateParams.locationId);
-    var obj = $firebaseObject(ref);
-    $scope.location = obj;
-  })
-
-  .controller('ChatsCtrl', function($scope, Chats) {
-
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  };
-
-  })
-
-  .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-    $scope.chat = Chats.get($stateParams.chatId);
-  })
-
   .controller('AdminCtrl', function($scope, Locations,$window, $ionicModal) {
     $scope.locations = Locations.all();
     $scope.location={};
@@ -213,6 +194,40 @@ angular.module('starter.controllers', [])
       // Execute action
     });
 
+  })
+
+  .controller('LocationDetailCtrl', function($scope, $stateParams,$firebaseObject,$sce,Chat) {
+    $scope.chat = Chat.all();
+    $scope.master = {};
+
+    $scope.init = function(stream)
+    {
+      $scope.url = stream;
+      $scope.url = $sce.trustAsResourceUrl($scope.url);
+    };
+
+    var ref = new Firebase("https://dubrovniksb.firebaseio.com/locations/"+$stateParams.locationId);
+    var obj = $firebaseObject(ref);
+    $scope.location = obj;
+
+    $scope.update = function(msg) {
+      $scope.chat.$add(msg);
+    };
+
+
+  })
+
+  .controller('ChatsCtrl', function($scope, Chats) {
+
+  $scope.chats = Chats.all();
+  $scope.remove = function(chat) {
+    Chats.remove(chat);
+  };
+
+  })
+
+  .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
+    $scope.chat = Chats.get($stateParams.chatId);
   })
 
 
