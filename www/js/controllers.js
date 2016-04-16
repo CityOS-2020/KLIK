@@ -49,6 +49,39 @@ angular.module('starter.controllers', [])
     }
   })
 
+  .controller('MapCtrl', function($scope, $state) {
+    var heatMapData = [
+      {location: new google.maps.LatLng(37.782, -122.447), weight: 0.5},
+      new google.maps.LatLng(37.782, -122.445),
+      {location: new google.maps.LatLng(37.782, -122.443), weight: 2},
+      {location: new google.maps.LatLng(37.782, -122.441), weight: 3},
+      {location: new google.maps.LatLng(37.782, -122.439), weight: 2},
+      new google.maps.LatLng(37.782, -122.437),
+      {location: new google.maps.LatLng(37.782, -122.435), weight: 0.5},
+
+      {location: new google.maps.LatLng(37.785, -122.447), weight: 3},
+      {location: new google.maps.LatLng(37.785, -122.445), weight: 2},
+      new google.maps.LatLng(37.785, -122.443),
+      {location: new google.maps.LatLng(37.785, -122.441), weight: 0.5},
+      new google.maps.LatLng(37.785, -122.439),
+      {location: new google.maps.LatLng(37.785, -122.437), weight: 2},
+      {location: new google.maps.LatLng(37.785, -122.435), weight: 3}
+    ];
+
+    var sanFrancisco = new google.maps.LatLng(42.644739, 18.105468);
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: sanFrancisco,
+      zoom: 15,
+      mapTypeId: google.maps.MapTypeId.SATELLITE
+    });
+
+    var heatmap = new google.maps.visualization.HeatmapLayer({
+      data: heatMapData
+    });
+    heatmap.setMap(map);
+  })
+
   .controller("HomeCtrl", function($scope, $sce,$window, Beaches) {
     $scope.init = function(stream)
     {
