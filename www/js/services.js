@@ -53,10 +53,22 @@ angular.module('starter.services', ['ionic', 'firebase','starter.controllers', '
     }
   )
 
-  .factory("Beaches", function($firebaseArray) {
+  .factory("Locations", function($firebaseArray) {
     var fb = new Firebase("https://dubrovniksb.firebaseio.com/");
-    var itemsRef = new Firebase("https://dubrovniksb.firebaseio.com/beaches");
-    return $firebaseArray(itemsRef);
+    var itemsRef = new Firebase("https://dubrovniksb.firebaseio.com/locations");
+
+    return {
+      all: function() {
+        return $firebaseArray(itemsRef);
+      },
+      get: function(locationId) {
+        new Firebase('https://dubrovniksb.firebaseio.com/locations/'+locationId+'/name').once('value', function(snap) {
+          console.log(snap.val());
+          return snap.val();
+        });
+      }
+    };
+
   })
 
   .factory('Chats', function() {

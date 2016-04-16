@@ -41,6 +41,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     }
   })
+    .state('tab.location-detail', {
+      url: '/dash/:locationId',
+      views: {
+        'tab-dash': {
+          templateUrl: 'templates/location-detail.html',
+          controller: 'LocationDetailCtrl'
+        }
+      }
+    })
 
   .state('tab.chats', {
       url: '/chats',
