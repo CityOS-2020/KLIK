@@ -1,24 +1,28 @@
 <ion-view view-title="{{location.name}}">
   <ion-content class="padding">
     <div class="row">
-      <div class="col" style="cursor: pointer;">
+      <div class="col col-top" style="cursor: pointer;">
         <img ng-hide="url" ng-click="init(location.stream)" ng-src="{{location.thumb}}"/>
         <iframe  style="width:1024px; height:768px;" ng-src="{{url}}" allowfullscreen></iframe>
       </div>
-      <div class="col">
+      <div class="col col-top">
          <h3>Air : {{location.temperature}}(°C)</h3>
          <h3>Sea : {{location.sea_temperature}}(°C)</h3>
          <h3>Humidity : {{location.humidity}}(%)</h3>
       </div>
-      <div class="col">
-        <input type='text' ng-model='msg.username' placeholder='Enter a username...'>
-        <input type='text' ng-model='msg.text'  placeholder='Type a message...'>
-        <button  ng-click="update(msg)" class="button button-block button-positive">Send</button>
+      <div class="col col-bottom">
+
         <ul>
           <li ng-repeat="message in chat track by $index | orderBy:$index | limitTo:5">
             {{message.username}}:{{message.text}}
           </li>
         </ul>
+
+          <input type='text' ng-model='msg.username' placeholder='Enter a username...'>
+          <input type='text' ng-model='msg.text'  placeholder='Type a message...'>
+          <button  ng-click="update(msg)" class="button button-block button-positive">Send</button>
+
+
      </div>
     </div>
   </ion-content>

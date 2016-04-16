@@ -50,14 +50,16 @@ angular.module('starter.controllers', [])
   })
 
 
-  .controller('MapCtrl', function($scope, $state, Map) {
+  .controller('MapCtrl', function($scope, $state, Locations) {
 
     function getHeatmapRadius(zoom) {
 
       return (zoom - 12) * 6;
     }
-    $scope.locations=Map;
-    console.log($scope.locations);
+
+
+
+
     var heatMapData = [
       {location: new google.maps.LatLng(42.6551039,18.07017989999997), weight: 21},
       {location: new google.maps.LatLng(42.641842,18.115410500000053), weight: 25}
@@ -66,22 +68,13 @@ angular.module('starter.controllers', [])
     //UVALA LAPAD 42.6551039,18.07017989999997
     //BANJE BEACH 42.641842,18.115410500000053
 
-    var positions =[{
-      "lapad":{
-        "lat": 42.6551039,
-        "lng":18.07017989999997
-      },
-      "banje":{
-        "lat":42.641842,
-        "lng":18.115410500000053
-      }
-    }];
 
 
-    var sanFrancisco = new google.maps.LatLng(42.644739, 18.105468);
+
+    var dubrovnik = new google.maps.LatLng(42.644739, 18.105468);
 
     var map = new google.maps.Map(document.getElementById('map'), {
-      center: sanFrancisco,
+      center: dubrovnik,
       zoom: 15,
       mapTypeId: google.maps.MapTypeId.SATELLITE
     });
