@@ -87,9 +87,10 @@ angular.module('starter.controllers', [])
 
   })
 
-  .controller('LocationDetailCtrl', function($scope, $stateParams, Locations) {
-    $scope.name="";
-    $scope.name = Locations.get($stateParams.locationId);
+  .controller('LocationDetailCtrl', function($scope, $stateParams,$firebaseObject) {
+    var ref = new Firebase("https://dubrovniksb.firebaseio.com/locations/"+$stateParams.locationId);
+    var obj = $firebaseObject(ref);
+    $scope.location = obj;
   })
 
   .controller('ChatsCtrl', function($scope, Chats) {
