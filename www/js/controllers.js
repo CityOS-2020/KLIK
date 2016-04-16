@@ -50,13 +50,18 @@ angular.module('starter.controllers', [])
   })
 
 
-  .controller('MapCtrl', function($scope, $state, Locations,$timeout) {
+  .controller('MapCtrl', function($scope, $state, Locations,$timeout,$ionicSideMenuDelegate) {
 
     initMap();
     function getHeatmapRadius(zoom) {
 
       return (zoom - 12) * 10;
     }
+
+    $scope.toggleMenu = function ()
+    {
+      $ionicSideMenuDelegate.toggleLeft();
+    };
 
 
   function initMap()
