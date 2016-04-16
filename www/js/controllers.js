@@ -51,6 +51,52 @@ angular.module('starter.controllers', [])
 
 
   .controller('MapCtrl', function($scope, $state, Locations,$timeout,$ionicSideMenuDelegate) {
+    var gradient1 = [
+      'rgba(0, 255, 255, 0)',
+      'rgba(0, 255, 255, 1)',
+      'rgba(0, 191, 255, 1)',
+      'rgba(0, 127, 255, 1)',
+      'rgba(0, 63, 255, 1)',
+      'rgba(0, 0, 255, 1)',
+      'rgba(0, 0, 223, 1)',
+      'rgba(0, 0, 191, 1)',
+      'rgba(0, 0, 159, 1)',
+      'rgba(0, 0, 127, 1)',
+      'rgba(63, 0, 91, 1)',
+      'rgba(127, 0, 63, 1)',
+      'rgba(191, 0, 31, 1)',
+      'rgba(255, 0, 0, 1)'
+    ];
+    var gradient2 = [
+      'rgba(0, 200, 255, 0)',
+      'rgba(0, 200, 255, 1)',
+      'rgba(0, 191, 255, 1)',
+      'rgba(0, 127, 255, 1)',
+      'rgba(0, 63, 255, 1)',
+      'rgba(0, 0, 255, 1)',
+      'rgba(0, 0, 223, 1)',
+      'rgba(0, 0, 191, 1)',
+      'rgba(0, 0, 159, 1)',
+      'rgba(0, 0, 127, 1)',
+      'rgba(63, 0, 91, 1)',
+      'rgba(127, 0, 63, 1)',
+      'rgba(191, 0, 31, 1)',
+      'rgba(255, 0, 0, 1)'
+
+    ];
+    $scope.trigger = function (type)
+    {
+      if(type==1){
+        initHeatMapMarkers(type,gradient1);
+      }else{
+        initHeatMapMarkers(type,gradient2);
+      }
+    };
+
+    $scope.toggleMenu = function ()
+    {
+      $ionicSideMenuDelegate.toggleLeft();
+    };
 
     initMap();
     function getHeatmapRadius(zoom) {
@@ -58,15 +104,9 @@ angular.module('starter.controllers', [])
       return (zoom - 12) * 10;
     }
 
-    $scope.toggleMenu = function ()
-    {
-      $ionicSideMenuDelegate.toggleLeft();
-    };
-
 
   function initMap()
   {
-    console.log("uso u init map");
     Locations.all().$loaded()
       .then(
         function(locations){
@@ -119,7 +159,7 @@ angular.module('starter.controllers', [])
       );
   }
 
-    function initHeatMapMarkers(){
+    function initHeatMapMarkers(type,gradient){
       console.log("uso u init heat markers");
       Locations.all().$loaded()
         .then(
@@ -128,8 +168,13 @@ angular.module('starter.controllers', [])
             //console.log(locations);
             for(var i=0;i<locations.length;i++)
             {
+              if( (typeof type !== 'undefined') && type==1)
+              {
+                heatMapData.push({location: new google.maps.LatLng(locations[i].lat,locations[i].lng), weight: locations[i].sea_temperature});
+              }else{
+                heatMapData.push({location: new google.maps.LatLng(locations[i].lat,locations[i].lng), weight: locations[i].humidity});
 
-              heatMapData.push({location: new google.maps.LatLng(locations[i].lat,locations[i].lng), weight: locations[i].sea_temperature});
+              }
             }
             return heatMapData;
           }
@@ -140,8 +185,10 @@ angular.module('starter.controllers', [])
             var heatmap = new google.maps.visualization.HeatmapLayer({
               data: heatMapData,
               disipating : true,
-              radius : getHeatmapRadius($scope.map.zoom)
+              radius : getHeatmapRadius($scope.map.zoom),
+              gradient : gradient
             });
+
 
 
             heatmap.setMap($scope.map);
