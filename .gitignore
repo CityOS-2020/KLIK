@@ -6,3 +6,5 @@ platforms/
 plugins/
 
 *.xml
+*.iml
+.idea/.name

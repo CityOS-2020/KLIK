@@ -1,31 +1,34 @@
 <ion-view view-title="Admin">
   <ion-content>
-    <ion-list>
+    <button ng-click="openModal()" class="button button-block button-positive">Add new location</button>
 
-      <div class="list">
-        <label class="item item-input">
-          <span class="input-label">Name</span>
-          <input ng-model="beach.name" type="text">
-        </label>
-        <label class="item item-input">
-          <span class="input-label">Temperature</span>
-          <input ng-model="beach.temp" type="text">
-        </label>
-        <label class="item item-input">
-          <span class="input-label">Humidity</span>
-          <input ng-model="beach.hum" type="text">
-        </label>
-        <label class="item item-input">
-          <span class="input-label">Stream name</span>
-          <input ng-model="beach.stream" type="text" placeholder="http://player.twitch.tv/?channel=">
-        </label>
-      </div>
-
-      <div class="padding">
-        <button  ng-click="update(beach)" class="button button-block button-positive">Add beach</button>
-        <button  ng-click="reset()" class="button button-block button-positive">Clear</button>
-      </div>
-
+    <ion-list class="padding">
+      <ion-item ng-click="" ng-repeat="location in locations track by $index" class="item-icon-right">
+        {{location.name}}
+        <i class="icon ion-edit"></i>
+      </ion-item>
     </ion-list>
+
   </ion-content>
 </ion-view>
+
+<script id="new-location.html" type="text/ng-template">
+  <ion-modal-view>
+    <ion-header-bar>
+      <h1 class="title">My Modal title</h1>
+    </ion-header-bar>
+    <ion-content>
+      <ion-list>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Name</span>
+          <input ng-model="location.name" type="text" placeholder="Enter initial value">
+        </label>
+        <div class="padding">
+          <button  ng-click="update(location)" class="button button-block button-positive">Submit location</button>
+          <button  ng-click="reset()" class="button button-block button-positive">Clear</button>
+        </div>
+      </ion-list>
+
+    </ion-content>
+  </ion-modal-view>
+</script>

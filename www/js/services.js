@@ -53,10 +53,15 @@ angular.module('starter.services', ['ionic', 'firebase','starter.controllers', '
     }
   )
 
-  .factory("Beaches", function($firebaseArray) {
-    var fb = new Firebase("https://dubrovniksb.firebaseio.com/");
-    var itemsRef = new Firebase("https://dubrovniksb.firebaseio.com/beaches");
-    return $firebaseArray(itemsRef);
+  .factory("Locations", function($firebaseArray) {
+    var itemsRef = new Firebase("https://dubrovniksb.firebaseio.com/locations");
+
+    return {
+      all: function() {
+        return $firebaseArray(itemsRef);
+      }
+    };
+
   })
 
   .factory('Chats', function() {
