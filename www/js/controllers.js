@@ -58,50 +58,69 @@ angular.module('starter.controllers', [])
     }
 
 
+    Locations.all().$loaded()
+      .then(
+        function(locations){
+          var heatMapData = [];
+          //console.log(locations);
+          for(var i=0;i<locations.length;i++)
+          {
+
+            heatMapData.push({location: new google.maps.LatLng(locations[i].lat,locations[i].lng), weight: locations[i].sea_temperature});
+          }
+         return heatMapData;
+        }
+      )
+      .then(
+        function(heatMapData)
+        {
+          var dubrovnik = new google.maps.LatLng(42.644739, 18.105468);
+
+          var map = new google.maps.Map(document.getElementById('map'), {
+            center: dubrovnik,
+            zoom: 15,
+            mapTypeId: google.maps.MapTypeId.SATELLITE
+          });
+
+          /*var marker = new google.maps.Marker({
+            position: {lat: 42.6551039, lng: 18.07017989999997},
+            map: map,
+          });
+
+          var infowindow = new google.maps.InfoWindow({
+            content: "Temp:",
+            maxWidth: 200
+          });
+
+          marker.addListener('click', function() {
+            infowindow.open(map, marker);
+          });*/
 
 
-    var heatMapData = [
+          var heatmap = new google.maps.visualization.HeatmapLayer({
+            data: heatMapData,
+            disipating : true,
+            radius : getHeatmapRadius(map.zoom)
+          });
+
+
+          heatmap.setMap(map);
+        }
+      );
+
+
+    /*var heatMapData = [
       {location: new google.maps.LatLng(42.6551039,18.07017989999997), weight: 21},
       {location: new google.maps.LatLng(42.641842,18.115410500000053), weight: 25}
-    ];
-
+    ];*/
+    //console.log(heatMapData);
     //UVALA LAPAD 42.6551039,18.07017989999997
     //BANJE BEACH 42.641842,18.115410500000053
 
 
 
 
-    var dubrovnik = new google.maps.LatLng(42.644739, 18.105468);
 
-    var map = new google.maps.Map(document.getElementById('map'), {
-      center: dubrovnik,
-      zoom: 15,
-      mapTypeId: google.maps.MapTypeId.SATELLITE
-    });
-
-    var marker = new google.maps.Marker({
-      position: {lat: 42.6551039, lng: 18.07017989999997},
-      map: map,
-    });
-
-    var infowindow = new google.maps.InfoWindow({
-      content: "Temp: 21°C",
-      maxWidth: 200
-    });
-
-    marker.addListener('click', function() {
-      infowindow.open(map, marker);
-    });
-
-
-    var heatmap = new google.maps.visualization.HeatmapLayer({
-      data: heatMapData,
-      disipating : true,
-      radius : getHeatmapRadius(map.zoom)
-    });
-
-
-    heatmap.setMap(map);
   })
 
 
