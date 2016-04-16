@@ -55,7 +55,7 @@ angular.module('starter.controllers', [])
     initMap();
     function getHeatmapRadius(zoom) {
 
-      return (zoom - 12) * 6;
+      return (zoom - 12) * 10;
     }
 
 
@@ -82,7 +82,8 @@ angular.module('starter.controllers', [])
 
           $scope.map = new google.maps.Map(document.getElementById('map'), {
             center: dubrovnik,
-            zoom: 15,
+            zoom: 14,
+            scrollwheel: false,
             mapTypeId: google.maps.MapTypeId.SATELLITE
           });
 
@@ -114,6 +115,7 @@ angular.module('starter.controllers', [])
   }
 
     function initHeatMapMarkers(){
+      console.log("uso u init heat markers");
       Locations.all().$loaded()
         .then(
           function(locations){
@@ -141,7 +143,7 @@ angular.module('starter.controllers', [])
           }
         );
           }
-    
+
 
     function wrapper() {
       initHeatMapMarkers();
