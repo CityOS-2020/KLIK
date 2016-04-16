@@ -64,6 +64,17 @@ angular.module('starter.services', ['ionic', 'firebase','starter.controllers', '
 
   })
 
+  .factory("Chat", function($firebaseArray) {
+    var itemsRef = new Firebase("https://dubrovniksb.firebaseio.com/locations/KFThZ8SV4sYv7IYQ3Pf/chat");
+
+    return {
+      all: function() {
+        return $firebaseArray(itemsRef);
+      }
+    };
+
+  })
+
   .factory("Map", function($firebaseArray) {
     var fb = new Firebase("https://dubrovniksb.firebaseio.com/");
     var itemsRef = new Firebase("https://dubrovniksb.firebaseio.com/location");
