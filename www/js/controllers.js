@@ -49,24 +49,33 @@ angular.module('starter.controllers', [])
     }
   })
 
-  .controller('MapCtrl', function($scope, $state) {
-    var heatMapData = [
-      {location: new google.maps.LatLng(37.782, -122.447), weight: 0.5},
-      new google.maps.LatLng(37.782, -122.445),
-      {location: new google.maps.LatLng(37.782, -122.443), weight: 2},
-      {location: new google.maps.LatLng(37.782, -122.441), weight: 3},
-      {location: new google.maps.LatLng(37.782, -122.439), weight: 2},
-      new google.maps.LatLng(37.782, -122.437),
-      {location: new google.maps.LatLng(37.782, -122.435), weight: 0.5},
+  .controller('MapCtrl', function($scope, $state, Map) {
 
-      {location: new google.maps.LatLng(37.785, -122.447), weight: 3},
-      {location: new google.maps.LatLng(37.785, -122.445), weight: 2},
-      new google.maps.LatLng(37.785, -122.443),
-      {location: new google.maps.LatLng(37.785, -122.441), weight: 0.5},
-      new google.maps.LatLng(37.785, -122.439),
-      {location: new google.maps.LatLng(37.785, -122.437), weight: 2},
-      {location: new google.maps.LatLng(37.785, -122.435), weight: 3}
+    function getHeatmapRadius(zoom) {
+
+      return (zoom - 12) * 6;
+    }
+    $scope.locations=Map;
+    console.log($scope.locations);
+    var heatMapData = [
+      {location: new google.maps.LatLng(42.6551039,18.07017989999997), weight: 21},
+      {location: new google.maps.LatLng(42.641842,18.115410500000053), weight: 25}
     ];
+
+    //UVALA LAPAD 42.6551039,18.07017989999997
+    //BANJE BEACH 42.641842,18.115410500000053
+
+    var positions =[{
+      "lapad":{
+        "lat": 42.6551039,
+        "lng":18.07017989999997
+      },
+      "banje":{
+        "lat":42.641842,
+        "lng":18.115410500000053
+      }
+    }];
+
 
     var sanFrancisco = new google.maps.LatLng(42.644739, 18.105468);
 
@@ -76,9 +85,28 @@ angular.module('starter.controllers', [])
       mapTypeId: google.maps.MapTypeId.SATELLITE
     });
 
-    var heatmap = new google.maps.visualization.HeatmapLayer({
-      data: heatMapData
+    var marker = new google.maps.Marker({
+      position: {lat: 42.6551039, lng: 18.07017989999997},
+      map: map,
     });
+
+    var infowindow = new google.maps.InfoWindow({
+      content: "Temp: 21°C",
+      maxWidth: 200
+    });
+
+    marker.addListener('click', function() {
+      infowindow.open(map, marker);
+    });
+
+
+    var heatmap = new google.maps.visualization.HeatmapLayer({
+      data: heatMapData,
+      disipating : true,
+      radius : getHeatmapRadius(map.zoom)
+    });
+
+
     heatmap.setMap(map);
   })
 

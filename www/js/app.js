@@ -94,7 +94,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     .state('tab.map', {
       url: '/map',
       views: {
-        'tab-admin': {
+        'tab-map': {
           templateUrl: 'templates/tab-map.html',
           controller: 'MapCtrl'
         }
