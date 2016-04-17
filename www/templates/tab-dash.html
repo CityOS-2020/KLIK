@@ -1,41 +1,16 @@
 <ion-view view-title="Location">
   <ion-content class="padding">
     <div ng-repeat="location in locations">
-      <ion-item class="item-icon-right"
-                ng-class="{active: isGroupShown(location)}"
-                href="#/tab/dash/{{location.$id}}">
-        <i class="icon ion-ios-sunny-outline"
-           ng-if="location.temp>30"></i>
-        <i class="icon ion-ios-partlysunny-outline"
-           ng-if="location.temp<=30&&location.temp>=25"></i>
-        <i class="icon ion-ios-cloudy-outline"
-           ng-if="location.temp<25"></i>
-        &nbsp;
-        {{location.name}}
-        <i ng-show="!isGroupShown(location)"
-           class="icon ion-more"></i>
-      </ion-item>
-      <ion-item ng-show="isGroupShown(location)">
-        Temperature : {{location.temp}}°C
-      </ion-item>
-      <ion-item ng-show="isGroupShown(location)">
-        Humidity : {{location.hum}}
-      </ion-item>
+      <ion-item href="#/tab/dash/{{location.$id}}">
+        <div class="item-icon-left">
+          &nbsp; {{location.name}}
+          <i ng-if="location.live" class="icon ion-ios-videocam-outline"></i>
+        </div>
+        <div class="item-icon-right">
+          <i class="icon ion-ios-arrow-right"></i>
+        </div>
 
-      <!--
-      <ion-item ng-show="isGroupShown(location)" ng-init="stars = getTotal(location)">
-        Rating :
-        <i  ng-repeat="n in [] | range:5" style="cursor:pointer;"
-            ng-class="n<stars ? 'ion-ios-star' : 'ion-ios-star-outline'"
-            ng-click="rate(n)"></i>
       </ion-item>
-      -->
-
-      <!--
-      <div ng-init="init(location)">
-        <iframe ng-show="isGroupShown(location)" ng-src="{{isGroupShown(location) ? url : ''}}" allowfullscreen></iframe>
-      </div>
-      -->
     </div>
   </ion-content>
 </ion-view>
