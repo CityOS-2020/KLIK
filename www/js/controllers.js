@@ -131,6 +131,18 @@ angular.module('starter.controllers', [])
         $scope.type=3;
         $scope.gradient=gradient3;
         initHeatMapMarkers(type,gradient3);
+      }else if(type==4){
+        $scope.type=4;
+        $scope.gradient=gradient2;
+        initHeatMapMarkers(type,gradient2);
+      }else if(type==5){
+        $scope.type=5;
+        $scope.gradient=gradient1;
+        initHeatMapMarkers(type,gradient1);
+      }else if(type==6){
+        $scope.type=6;
+        $scope.gradient=gradient3;
+        initHeatMapMarkers(type,gradient3);
       }
     };
 
@@ -164,6 +176,12 @@ angular.module('starter.controllers', [])
               }else if($scope.type==3){
                 heatMapData.push({location: new google.maps.LatLng(locations[i].lat,locations[i].lng), weight: locations[i].sea_temperature});
 
+              }else if($scope.type==4){
+                heatMapData.push({location: new google.maps.LatLng(locations[i].lat,locations[i].lng), weight: locations[i].humidity});
+              }else if($scope.type==5){
+                heatMapData.push({location: new google.maps.LatLng(locations[i].lat,locations[i].lng), weight: locations[i].mq});
+              }else if($scope.type==6){
+                heatMapData.push({location: new google.maps.LatLng(locations[i].lat,locations[i].lng), weight: locations[i].ppl});
               }
             }
             return heatMapData;
@@ -228,6 +246,12 @@ angular.module('starter.controllers', [])
               }else if($scope.type==3){
                 heatMapData.push({location: new google.maps.LatLng(locations[i].lat,locations[i].lng), weight: locations[i].sea_temperature});
 
+              }else if($scope.type==4){
+                heatMapData.push({location: new google.maps.LatLng(locations[i].lat,locations[i].lng), weight: locations[i].humidity});
+              }else if($scope.type==5){
+                heatMapData.push({location: new google.maps.LatLng(locations[i].lat,locations[i].lng), weight: locations[i].mq});
+              }else if($scope.type==6){
+                heatMapData.push({location: new google.maps.LatLng(locations[i].lat,locations[i].lng), weight: locations[i].ppl});
               }
             }
             return heatMapData;
