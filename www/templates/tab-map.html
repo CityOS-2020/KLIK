@@ -7,22 +7,22 @@
   <ion-side-menu side="left">
     <ion-content padding="false">
       <ion-list>
-        <ion-item class="item-icon-left" ng-click="trigger(1)">
+        <ion-item ng-class="{'active' : type == 1}" class="item-icon-left" ng-click="trigger(1)">
           <i class="icon ion-thermometer"></i> Temperature
         </ion-item>
-        <ion-item class="item-icon-left" ng-click="trigger(2)">
+        <ion-item ng-class="{'active' : type == 2}" class="item-icon-left" ng-click="trigger(2)">
           <i class="icon ion-ios-sunny-outline"></i> UV index
         </ion-item>
-        <ion-item class="item-icon-left" ng-click="trigger(3)">
+        <ion-item ng-class="{'active' : type == 3}" class="item-icon-left" ng-click="trigger(3)">
           <i class="icon ion-waterdrop"></i> Sea temperature
         </ion-item>
-        <ion-item class="item-icon-left" ng-click="trigger(4)">
+        <ion-item ng-class="{'active' : type == 4}" class="item-icon-left" ng-click="trigger(4)">
           <i class="icon ion-ios-rainy-outline"></i> Humidity
         </ion-item>
-        <ion-item class="item-icon-left" ng-click="trigger(5)">
+        <ion-item ng-class="{'active' : type == 5}" class="item-icon-left" ng-click="trigger(5)">
           <i class="icon ion-leaf"></i> Air quality
         </ion-item>
-        <ion-item class="item-icon-left" ng-click="trigger(6)">
+        <ion-item ng-class="{'active' : type == 6}" class="item-icon-left" ng-click="trigger(6)">
           <i class="icon ion-ios-people-outline"></i> People
         </ion-item>
       </ion-list>
