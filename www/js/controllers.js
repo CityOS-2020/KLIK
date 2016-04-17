@@ -12,7 +12,7 @@ angular.module('starter.controllers', [])
         .then(
           function(auth)
           {
-           return auth;
+            return auth;
           }
         )
         .then(
@@ -38,35 +38,46 @@ angular.module('starter.controllers', [])
     $scope.registerHndlr = function(nextState)
     {
       console.log($scope.register);
-        Register.register($scope.register.username,$scope.register.password)
-          .then(
-            function(user)
-            {
-              console.log(user);
-            }
-          );
+      Register.register($scope.register.username,$scope.register.password)
+        .then(
+          function(user)
+          {
+            console.log(user);
+          }
+        );
 
     }
   })
 
 
   .controller('MapCtrl', function($scope, $state, Locations,$timeout,$ionicSideMenuDelegate) {
-    var gradient1 = [
-      'rgba(0, 255, 255, 0)',
-      'rgba(0, 255, 255, 1)',
-      'rgba(0, 191, 255, 1)',
-      'rgba(0, 127, 255, 1)',
-      'rgba(0, 63, 255, 1)',
-      'rgba(0, 0, 255, 1)',
-      'rgba(0, 0, 223, 1)',
-      'rgba(0, 0, 191, 1)',
-      'rgba(0, 0, 159, 1)',
-      'rgba(0, 0, 127, 1)',
-      'rgba(63, 0, 91, 1)',
-      'rgba(127, 0, 63, 1)',
-      'rgba(191, 0, 31, 1)',
-      'rgba(255, 0, 0, 1)'
-    ];
+    var gradient1 = /*[
+     'rgba(255, 0, 0, 0)',
+     'rgba(255, 255, 0, 0.9)',
+     'rgba(0, 255, 0, 0.7)',
+     'rgba(173, 255, 47, 0.5)',
+     'rgba(152, 251, 152, 0)',
+     'rgba(152, 251, 152, 0)',
+     'rgba(0, 0, 238, 0.5)',
+     'rgba(186, 85, 211, 0.7)',
+     'rgba(255, 0, 255, 0.9)',
+     'rgba(255, 0, 0, 1)'];*/
+      [
+        'rgba(0, 255, 255, 0)',
+        'rgba(0, 255, 255, 1)',
+        'rgba(0, 191, 255, 1)',
+        'rgba(0, 127, 255, 1)',
+        'rgba(0, 63, 255, 1)',
+        'rgba(0, 0, 255, 1)',
+        'rgba(0, 0, 223, 1)',
+        'rgba(0, 0, 191, 1)',
+        'rgba(0, 0, 159, 1)',
+        'rgba(0, 0, 127, 1)',
+        'rgba(63, 0, 91, 1)',
+        'rgba(127, 0, 63, 1)',
+        'rgba(191, 0, 31, 1)',
+        'rgba(255, 0, 0, 1)'
+      ];
     var gradient2 = [
       'rgba(0, 200, 255, 0)',
       'rgba(0, 200, 255, 1)',
@@ -84,12 +95,42 @@ angular.module('starter.controllers', [])
       'rgba(255, 0, 0, 1)'
 
     ];
+    //za temperaturu zraka
+    var  gradient3 = [
+      'rgba(255, 255, 0, 0)',
+      'rgba(255, 255, 0, 1)',
+      'rgba(255, 225, 0, 1)',
+      'rgba(255, 200, 0, 1)',
+      'rgba(255, 175, 0, 1)',
+      'rgba(255, 160, 0, 1)',
+      'rgba(255, 145, 0, 1)',
+      'rgba(255, 125, 0, 1)',
+      'rgba(255, 110, 0, 1)',
+      'rgba(255, 100, 0, 1)',
+      'rgba(255, 75, 0, 1)',
+      'rgba(255, 50, 0, 1)',
+      'rgba(255, 25, 0, 1)',
+      'rgba(255, 0, 0, 1)'
+    ];
+    $scope.type=1;
+    $scope.gradient=gradient3;
+
     $scope.trigger = function (type)
     {
+      $scope.type="";
+      $scope.gradient="";
       if(type==1){
-        initHeatMapMarkers(type,gradient1);
-      }else{
+        $scope.type=type;
+        $scope.gradient=gradient3;
+        initHeatMapMarkers(type,gradient3);
+      }else if(type==2){
+        $scope.type=2;
+        $scope.gradient=gradient2;
         initHeatMapMarkers(type,gradient2);
+      }else if(type==3){
+        $scope.type=3;
+        $scope.gradient=gradient3;
+        initHeatMapMarkers(type,gradient3);
       }
     };
 
@@ -105,62 +146,8 @@ angular.module('starter.controllers', [])
     }
 
 
-  function initMap()
-  {
-    Locations.all().$loaded()
-      .then(
-        function(locations){
-          var heatMapData = [];
-          //console.log(locations);
-          for(var i=0;i<locations.length;i++)
-          {
-
-            heatMapData.push({location: new google.maps.LatLng(locations[i].lat,locations[i].lng), weight: locations[i].sea_temperature});
-          }
-         return heatMapData;
-        }
-      )
-      .then(
-        function(heatMapData)
-        {
-          var dubrovnik = new google.maps.LatLng(42.644739, 18.105468);
-
-          $scope.map = new google.maps.Map(document.getElementById('map'), {
-            center: dubrovnik,
-            zoom: 14,
-            scrollwheel: false,
-            mapTypeId: google.maps.MapTypeId.SATELLITE
-          });
-
-          /*var marker = new google.maps.Marker({
-            position: {lat: 42.6551039, lng: 18.07017989999997},
-            map: map,
-          });
-
-          var infowindow = new google.maps.InfoWindow({
-            content: "Temp:",
-            maxWidth: 200
-          });
-
-          marker.addListener('click', function() {
-            infowindow.open(map, marker);
-          });*/
-
-
-          var heatmap = new google.maps.visualization.HeatmapLayer({
-            data: heatMapData,
-            disipating : true,
-            radius : getHeatmapRadius($scope.map.zoom)
-          });
-
-
-          heatmap.setMap($scope.map);
-        }
-      );
-  }
-
-    function initHeatMapMarkers(type,gradient){
-      console.log("uso u init heat markers");
+    function initMap()
+    {
       Locations.all().$loaded()
         .then(
           function(locations){
@@ -168,11 +155,14 @@ angular.module('starter.controllers', [])
             //console.log(locations);
             for(var i=0;i<locations.length;i++)
             {
-              if( (typeof type !== 'undefined') && type==1)
+              if( (typeof $scope.type !== 'undefined') && $scope.type==1)
               {
+                heatMapData.push({location: new google.maps.LatLng(locations[i].lat,locations[i].lng), weight: locations[i].temperature});
+              }else if($scope.type==2){
+                heatMapData.push({location: new google.maps.LatLng(locations[i].lat,locations[i].lng), weight: locations[i].uv});
+
+              }else if($scope.type==3){
                 heatMapData.push({location: new google.maps.LatLng(locations[i].lat,locations[i].lng), weight: locations[i].sea_temperature});
-              }else{
-                heatMapData.push({location: new google.maps.LatLng(locations[i].lat,locations[i].lng), weight: locations[i].humidity});
 
               }
             }
@@ -182,23 +172,87 @@ angular.module('starter.controllers', [])
         .then(
           function(heatMapData)
           {
-            var heatmap = new google.maps.visualization.HeatmapLayer({
+            var dubrovnik = new google.maps.LatLng(42.644739, 18.105468);
+
+            $scope.map = new google.maps.Map(document.getElementById('map'), {
+              center: dubrovnik,
+              zoom: 14,
+              scrollwheel: false,
+              mapTypeId: google.maps.MapTypeId.SATELLITE
+            });
+
+            /*var marker = new google.maps.Marker({
+             position: {lat: 42.6551039, lng: 18.07017989999997},
+             map: map,
+             });
+
+             var infowindow = new google.maps.InfoWindow({
+             content: "Temp:",
+             maxWidth: 200
+             });
+
+             marker.addListener('click', function() {
+             infowindow.open(map, marker);
+             });*/
+
+
+            $scope.heatmap = new google.maps.visualization.HeatmapLayer({
+              data: heatMapData,
+              disipating : true,
+              gradient : $scope.gradient,
+              radius : getHeatmapRadius($scope.map.zoom)
+            });
+
+
+            $scope.heatmap.setMap($scope.map);
+          }
+        );
+    }
+
+    function initHeatMapMarkers(type,gradient){
+      console.log("uso u init heat markers");
+      $scope.heatmap.setMap(null);
+      Locations.all().$loaded()
+        .then(
+          function(locations){
+            var heatMapData = [];
+            //console.log(locations);
+            for(var i=0;i<locations.length;i++)
+            {
+              if( (typeof $scope.type !== 'undefined') && $scope.type==1)
+              {
+                heatMapData.push({location: new google.maps.LatLng(locations[i].lat,locations[i].lng), weight: locations[i].temperature});
+              }else if($scope.type==2){
+                heatMapData.push({location: new google.maps.LatLng(locations[i].lat,locations[i].lng), weight: locations[i].uv});
+
+              }else if($scope.type==3){
+                heatMapData.push({location: new google.maps.LatLng(locations[i].lat,locations[i].lng), weight: locations[i].sea_temperature});
+
+              }
+            }
+            return heatMapData;
+          }
+        )
+        .then(
+          function(heatMapData)
+          {
+            $scope.heatmap = new google.maps.visualization.HeatmapLayer({
               data: heatMapData,
               disipating : true,
               radius : getHeatmapRadius($scope.map.zoom),
-              gradient : gradient
+              gradient : $scope.gradient
             });
 
 
 
-            heatmap.setMap($scope.map);
+            $scope.heatmap.setMap($scope.map);
           }
         );
-          }
+    }
 
 
     function wrapper() {
-      initHeatMapMarkers();
+      initHeatMapMarkers($scope.type,$scope.gradient);
       $timeout(wrapper, 10000);
     }
 
@@ -206,9 +260,9 @@ angular.module('starter.controllers', [])
 
 
     /*var heatMapData = [
-      {location: new google.maps.LatLng(42.6551039,18.07017989999997), weight: 21},
-      {location: new google.maps.LatLng(42.641842,18.115410500000053), weight: 25}
-    ];*/
+     {location: new google.maps.LatLng(42.6551039,18.07017989999997), weight: 21},
+     {location: new google.maps.LatLng(42.641842,18.115410500000053), weight: 25}
+     ];*/
     //console.log(heatMapData);
     //UVALA LAPAD 42.6551039,18.07017989999997
     //BANJE BEACH 42.641842,18.115410500000053
@@ -329,10 +383,10 @@ angular.module('starter.controllers', [])
 
   .controller('ChatsCtrl', function($scope, Chats) {
 
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  };
+    $scope.chats = Chats.all();
+    $scope.remove = function(chat) {
+      Chats.remove(chat);
+    };
 
   })
 
@@ -341,6 +395,6 @@ angular.module('starter.controllers', [])
   })
 
 
-.controller('AccountCtrl', function() {
+  .controller('AccountCtrl', function() {
 
-});
+  });
