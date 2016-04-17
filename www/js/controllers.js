@@ -20,7 +20,7 @@ angular.module('starter.controllers', [])
           {
             if(auth)
             {
-              $state.go('tab.dash');
+              $state.go('tab.map');
             }
           }
         );

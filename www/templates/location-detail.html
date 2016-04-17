@@ -2,6 +2,7 @@
   <ion-content class="padding">
     <div class="row">
       <div class="col col-top" style="cursor: pointer;">
+
         <img ng-hide="url" ng-click="init(location.stream)" ng-src="{{location.thumb}}"/>
         <iframe  style="width:1024px; height:768px;" ng-src="{{url}}" allowfullscreen></iframe>
       </div>
