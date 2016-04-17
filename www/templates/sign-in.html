@@ -1,6 +1,13 @@
-<ion-view view-title="Sign-In">
+<ion-view view-title="Welcome">
   <ion-content>
-    <div class="list">
+    <div class="row">
+      <div class="col col-50 col-offset-25">
+        <img width="100%" src="http://i.imgur.com/Kx8uXnz.jpg?1">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col col-50 col-offset-25">
+      <div class="list">
       <label class="item item-input">
         <span class="input-label">Username</span>
         <input type="text" ng-model="signin.username">
@@ -11,12 +18,14 @@
       </label>
     </div>
     <div class="padding">
-      <button class="button button-block button-positive" ng-click="signIn()">
+      <button class="button button-block button-stable" ng-click="signIn()">
         Sign-In
       </button>
       <p class="text-center">
         <a href="#/register">Register</a>
       </p>
     </div>
+      </div>
+      </div>
   </ion-content>
 </ion-view>
