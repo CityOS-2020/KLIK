@@ -112,6 +112,25 @@ angular.module('starter.controllers', [])
       'rgba(255, 25, 0, 1)',
       'rgba(255, 0, 0, 1)'
     ];
+
+    //za zagadjenost zraka
+    var  gradient33 = [
+      'rgba(0, 255, 0, 0)',
+      'rgba(0, 255, 0, 1)',
+      'rgba(0, 225, 0, 1)',
+      'rgba(0, 200, 0, 1)',
+      'rgba(0, 175, 0, 1)',
+      'rgba(0, 160, 0, 1)',
+      'rgba(0, 145, 0, 1)',
+      'rgba(0, 125, 0, 1)',
+      'rgba(0, 110, 0, 1)',
+      'rgba(0, 100, 0, 1)',
+      'rgba(0, 75, 0, 1)',
+      'rgba(0, 50, 0, 1)',
+      'rgba(0, 25, 0, 1)',
+      'rgba(0, 0, 0, 1)'
+    ];
+
     $scope.type=1;
     $scope.gradient=gradient3;
 
@@ -137,8 +156,8 @@ angular.module('starter.controllers', [])
         initHeatMapMarkers(type,gradient2);
       }else if(type==5){
         $scope.type=5;
-        $scope.gradient=gradient1;
-        initHeatMapMarkers(type,gradient1);
+        $scope.gradient=gradient33;
+        initHeatMapMarkers(type,gradient33);
       }else if(type==6){
         $scope.type=6;
         $scope.gradient=gradient3;
