@@ -305,7 +305,7 @@ angular.module('starter.controllers', [])
   })
 
   .controller('LocationDetailCtrl', function($scope, $stateParams,$firebaseObject,$sce,Chat) {
-    $scope.chat = Chat.all();
+    $scope.chat = Chat.all($stateParams.locationId);
     $scope.master = {};
 
     $scope.init = function(stream)
